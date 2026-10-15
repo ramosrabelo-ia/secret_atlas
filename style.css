@@ -1,0 +1,1380 @@
+/* ============================================================
+   SACRED ATLAS — Design System
+   Conceito: Pergaminho histórico × interface técnica
+   Paleta: Creme envelhecido · Sépia · Dourado · Preto tinta
+   Tipografia: Cormorant Garamond (display) × Geist Mono (UI técnico) × Inter (corpo)
+   ============================================================ */
+
+/* ──────────────────── FONT IMPORTS ──────────────────── */
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Geist+Mono:wght@300;400;500&family=Inter:wght@300;400;500;600&display=swap');
+
+/* ──────────────────── TOKENS ──────────────────── */
+:root {
+  --font-display: 'Cormorant Garamond', 'Garamond', 'Georgia', serif;
+  --font-serif:   'Playfair Display', 'Georgia', serif;
+  --font-mono:    'Geist Mono', 'JetBrains Mono', 'Fira Mono', monospace;
+  --font-ui:      'Inter', system-ui, sans-serif;
+
+  /* Type scale */
+  --text-xs:   clamp(0.68rem, 0.62rem + 0.2vw, 0.75rem);
+  --text-sm:   clamp(0.78rem, 0.72rem + 0.22vw, 0.875rem);
+  --text-base: clamp(0.9rem, 0.82rem + 0.3vw, 1rem);
+  --text-lg:   clamp(1.05rem, 0.9rem + 0.55vw, 1.25rem);
+  --text-xl:   clamp(1.3rem, 1rem + 1vw, 1.75rem);
+  --text-2xl:  clamp(1.7rem, 1.2rem + 1.8vw, 2.5rem);
+
+  /* Spacing */
+  --s1: 0.25rem; --s2: 0.5rem; --s3: 0.75rem; --s4: 1rem;
+  --s5: 1.25rem; --s6: 1.5rem; --s8: 2rem; --s10: 2.5rem;
+
+  /* Radius */
+  --r-sm: 3px; --r-md: 6px; --r-lg: 10px; --r-full: 9999px;
+
+  /* Transition */
+  --ease: 160ms cubic-bezier(0.16, 1, 0.3, 1);
+
+  /* Layout */
+  --header-h: 54px;
+  --timeline-h: 46px;
+  --sidebar-w: 272px;
+}
+
+/* ══════════════════════════════════════════════
+   LIGHT THEME — Pergaminho (default)
+   ══════════════════════════════════════════════ */
+:root, [data-theme="light"] {
+
+  /* Superfícies — envelhecimento gradual */
+  --bg:          #f2ede3;   /* pergaminho base */
+  --surface:     #f7f3ea;   /* painel lateral */
+  --surface-2:   #faf7f0;   /* elementos elevados */
+  --surface-3:   #ede8db;   /* deprimido / hover */
+  --surface-ink: #e8e2d4;   /* campo de input */
+
+  /* Bordas finas como linhas de mapa antigo */
+  --border:      #c8bfa5;
+  --border-2:    #b8ae94;
+  --border-faint:#ddd7c8;
+
+  /* Texto */
+  --text:        #1a1710;   /* preto tinta */
+  --text-muted:  #5a5240;   /* sépia médio */
+  --text-faint:  #9a8e78;   /* sépia claro */
+  --text-inv:    #f7f3ea;
+
+  /* Acento dourado-âmbar — como tinta de ouro em manuscritos */
+  --accent:      #8b6020;
+  --accent-h:    #6b4812;
+  --accent-dim:  rgba(139, 96, 32, 0.10);
+  --accent-line: rgba(139, 96, 32, 0.25);
+
+  /* Acento técnico — azul-aço para elementos de UI */
+  --tech:        #2d5a7a;
+  --tech-dim:    rgba(45, 90, 122, 0.10);
+
+  /* Sépia de fundo para mapa */
+  --map-filter:  brightness(1.05) saturate(0.6) sepia(0.18);
+
+  /* Sombras suaves como livro antigo */
+  --shadow-sm: 0 1px 3px rgba(60,45,20,0.10);
+  --shadow-md: 0 4px 14px rgba(60,45,20,0.13);
+  --shadow-lg: 0 10px 36px rgba(60,45,20,0.18);
+
+  /* Grain texture via CSS */
+  --noise: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+}
+
+/* ══════════════════════════════════════════════
+   DARK THEME — Pergaminho noturno
+   ══════════════════════════════════════════════ */
+[data-theme="dark"] {
+  --bg:          #14120d;
+  --surface:     #1a1812;
+  --surface-2:   #201d16;
+  --surface-3:   #252117;
+  --surface-ink: #18160f;
+
+  --border:      #302a1e;
+  --border-2:    #3d3626;
+  --border-faint:#26221a;
+
+  --text:        #e8e0cc;
+  --text-muted:  #9a9080;
+  --text-faint:  #5a5444;
+  --text-inv:    #14120d;
+
+  --accent:      #c9952a;
+  --accent-h:    #e0b04a;
+  --accent-dim:  rgba(201,149,42,0.12);
+  --accent-line: rgba(201,149,42,0.22);
+
+  --tech:        #4a8aaa;
+  --tech-dim:    rgba(74,138,170,0.12);
+
+  --map-filter:  brightness(0.82) saturate(0.75) sepia(0.10);
+
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.4);
+  --shadow-md: 0 4px 14px rgba(0,0,0,0.5);
+  --shadow-lg: 0 10px 36px rgba(0,0,0,0.65);
+}
+
+/* ──────────────────── BASE RESET ──────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  font-feature-settings: "kern" 1, "liga" 1, "calt" 1;
+}
+
+body {
+  font-family: var(--font-ui);
+  font-size: var(--text-base);
+  color: var(--text);
+  background: var(--bg);
+  height: 100dvh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  /* Subtle grain over everything */
+  background-image: var(--noise);
+}
+
+/* ══════════════════════════════════════════════
+   HEADER
+   ══════════════════════════════════════════════ */
+.app-header {
+  height: var(--header-h);
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 var(--s5);
+  gap: var(--s4);
+  flex-shrink: 0;
+  position: relative;
+  z-index: 1000;
+  /* Linha técnica dupla embaixo */
+  box-shadow: 0 1px 0 var(--border-faint), 0 2px 0 var(--accent-line);
+}
+
+/* Linha decorativa de canto superior — detalhe técnico */
+.app-header::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg,
+    transparent 0%,
+    var(--accent-line) 15%,
+    var(--accent) 50%,
+    var(--accent-line) 85%,
+    transparent 100%
+  );
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: var(--s3);
+  min-width: 0;
+}
+
+/* Logo SVG — globo cartográfico */
+.logo-svg {
+  width: 30px;
+  height: 30px;
+  color: var(--accent);
+  flex-shrink: 0;
+  opacity: 0.9;
+}
+
+.header-title {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.header-title h1 {
+  font-family: var(--font-display);
+  font-size: clamp(1.1rem, 0.9rem + 0.8vw, 1.5rem);
+  font-weight: 600;
+  color: var(--accent);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  line-height: 1;
+}
+
+/* Subtítulo em mono — toque técnico */
+.header-subtitle {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  font-weight: 300;
+  color: var(--text-faint);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: var(--s2);
+}
+
+/* ══════════════════════════════════════════════
+   LAYOUT
+   ══════════════════════════════════════════════ */
+.app-layout {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+  height: calc(100dvh - var(--header-h) - var(--timeline-h));
+}
+
+/* ══════════════════════════════════════════════
+   SIDEBAR — painel como caderneta de campo
+   ══════════════════════════════════════════════ */
+.sidebar {
+  width: var(--sidebar-w);
+  background: var(--surface);
+  border-right: 1px solid var(--border);
+  overflow-y: auto;
+  overflow-x: hidden;
+  flex-shrink: 0;
+  scrollbar-width: thin;
+  scrollbar-color: var(--border-2) transparent;
+  /* Linha de costura interna */
+  box-shadow: inset -1px 0 0 var(--border-faint);
+  position: relative;
+}
+
+/* Marca d'água sutil no painel */
+.sidebar::after {
+  content: '';
+  position: absolute;
+  bottom: var(--s6);
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 60px;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Ccircle cx='20' cy='20' r='18' stroke='%23c8bfa5' stroke-width='0.8' fill='none'/%3E%3Cellipse cx='20' cy='20' rx='10' ry='18' stroke='%23c8bfa5' stroke-width='0.8' fill='none'/%3E%3Cline x1='2' y1='20' x2='38' y2='20' stroke='%23c8bfa5' stroke-width='0.6'/%3E%3Cline x1='20' y1='2' x2='20' y2='38' stroke='%23c8bfa5' stroke-width='0.6'/%3E%3C/svg%3E") center/contain no-repeat;
+  opacity: 0.2;
+  pointer-events: none;
+}
+
+.sidebar::-webkit-scrollbar { width: 3px; }
+.sidebar::-webkit-scrollbar-track { background: transparent; }
+.sidebar::-webkit-scrollbar-thumb { background: var(--border-2); border-radius: 2px; }
+
+.sidebar-inner {
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Seções com divisória de regra impressa */
+.sidebar-section {
+  padding: var(--s4) var(--s4);
+  border-bottom: 1px solid var(--border-faint);
+  position: relative;
+}
+
+.sidebar-section:last-child { border-bottom: none; }
+
+.section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--s3);
+}
+
+/* Títulos de seção em SMALL CAPS mono — rótulos técnicos */
+.section-title {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  font-weight: 500;
+  color: var(--text-faint);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  margin-bottom: var(--s3);
+  /* Linha horizontal como sub-regra tipográfica */
+  padding-bottom: var(--s2);
+  border-bottom: 1px solid var(--border-faint);
+}
+
+.section-header .section-title { margin-bottom: 0; border-bottom: none; padding-bottom: 0; }
+
+/* ══════════════════════════════════════════════
+   BUSCA
+   ══════════════════════════════════════════════ */
+.search-box {
+  display: flex;
+  align-items: center;
+  gap: var(--s2);
+  background: var(--surface-ink);
+  border: 1px solid var(--border);
+  border-radius: var(--r-sm);
+  padding: 7px var(--s3);
+  transition: border-color var(--ease), box-shadow var(--ease);
+}
+
+.search-box:focus-within {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 2px var(--accent-dim);
+}
+
+.search-box svg { color: var(--text-faint); flex-shrink: 0; }
+
+.search-box input {
+  flex: 1;
+  background: none;
+  border: none;
+  outline: none;
+  font-family: var(--font-ui);
+  font-size: var(--text-sm);
+  color: var(--text);
+  min-width: 0;
+}
+
+.search-box input::placeholder {
+  color: var(--text-faint);
+  font-style: italic;
+}
+
+.search-clear {
+  background: none; border: none;
+  color: var(--text-faint); cursor: pointer;
+  font-size: 1rem; padding: 0; line-height: 1;
+  transition: color var(--ease);
+}
+.search-clear:hover { color: var(--text); }
+
+/* ══════════════════════════════════════════════
+   LISTA DE TRADIÇÕES
+   ══════════════════════════════════════════════ */
+.religion-list {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.religion-item {
+  display: flex;
+  align-items: center;
+  gap: var(--s2);
+  padding: 5px var(--s2);
+  border-radius: var(--r-sm);
+  cursor: pointer;
+  transition: background var(--ease);
+  user-select: none;
+}
+
+.religion-item:hover { background: var(--surface-3); }
+.religion-item.disabled { opacity: 0.35; }
+
+.religion-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  box-shadow: 0 0 0 1.5px rgba(0,0,0,0.12);
+}
+
+.religion-name {
+  font-size: var(--text-sm);
+  color: var(--text-muted);
+  flex: 1;
+  line-height: 1.3;
+}
+
+/* Contagem em mono */
+.religion-count {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 400;
+  color: var(--text-faint);
+  letter-spacing: 0.05em;
+}
+
+/* ══════════════════════════════════════════════
+   CHIPS DE FILTRO
+   ══════════════════════════════════════════════ */
+.event-type-list, .certainty-list, .route-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.filter-chip {
+  display: flex;
+  align-items: center;
+  gap: var(--s2);
+  padding: 4px var(--s2);
+  border-radius: var(--r-sm);
+  cursor: pointer;
+  transition: background var(--ease);
+  user-select: none;
+}
+
+.filter-chip:hover { background: var(--surface-3); }
+.filter-chip.disabled { opacity: 0.3; }
+
+.filter-chip input[type="checkbox"] {
+  width: 12px; height: 12px;
+  accent-color: var(--accent);
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.filter-chip-label {
+  font-size: var(--text-xs);
+  color: var(--text-muted);
+  line-height: 1.4;
+}
+
+.certainty-badge {
+  width: 7px; height: 7px;
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+
+/* ══════════════════════════════════════════════
+   CONTROLES DE PERÍODO
+   ══════════════════════════════════════════════ */
+.period-display {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--s3);
+}
+
+/* Datas em tipografia display — como em atlas */
+.period-val {
+  font-family: var(--font-display);
+  font-size: var(--text-lg);
+  font-weight: 600;
+  font-style: italic;
+  color: var(--accent);
+  letter-spacing: 0.01em;
+  line-height: 1;
+}
+
+.period-sep {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  color: var(--border-2);
+  letter-spacing: 0.1em;
+}
+
+.timeline-range {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s2);
+  margin-bottom: var(--s3);
+}
+
+.timeline-range input[type="range"] {
+  width: 100%;
+  accent-color: var(--accent);
+  cursor: pointer;
+  height: 3px;
+}
+
+/* Presets de período — badges técnicos */
+.period-presets {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--s1);
+}
+
+.period-btn {
+  padding: 4px var(--s2);
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: var(--r-sm);
+  font-family: var(--font-mono);
+  font-size: 9px;
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  color: var(--text-faint);
+  cursor: pointer;
+  transition: all var(--ease);
+  text-align: center;
+}
+
+.period-btn:hover {
+  background: var(--accent-dim);
+  border-color: var(--accent-line);
+  color: var(--accent);
+}
+
+.period-btn.active {
+  background: var(--accent-dim);
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+/* ══════════════════════════════════════════════
+   AÇÕES DE SEÇÃO
+   ══════════════════════════════════════════════ */
+.section-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--s1);
+}
+
+.btn-text {
+  background: none; border: none;
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.1em;
+  color: var(--text-faint);
+  cursor: pointer;
+  padding: 2px 4px;
+  transition: color var(--ease);
+}
+
+.btn-text:hover { color: var(--accent); }
+
+.divider-v {
+  color: var(--border);
+  font-size: 10px;
+}
+
+/* ══════════════════════════════════════════════
+   BOTÕES ÍCONE
+   ══════════════════════════════════════════════ */
+.btn-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px; height: 30px;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--r-sm);
+  color: var(--text-faint);
+  cursor: pointer;
+  transition: all var(--ease);
+}
+
+.btn-icon:hover {
+  background: var(--surface-3);
+  color: var(--text-muted);
+  border-color: var(--border-2);
+}
+
+/* ══════════════════════════════════════════════
+   MAPA
+   ══════════════════════════════════════════════ */
+.map-container {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+}
+
+#map {
+  width: 100%;
+  height: 100%;
+}
+
+.leaflet-tile {
+  filter: var(--map-filter) !important;
+}
+
+/* ══════════════════════════════════════════════
+   ESTATÍSTICAS DO MAPA — badge técnico
+   ══════════════════════════════════════════════ */
+.map-stats {
+  position: absolute;
+  bottom: var(--s4);
+  right: var(--s4);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-sm);
+  padding: 5px var(--s3);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 400;
+  color: var(--text-faint);
+  letter-spacing: 0.08em;
+  z-index: 500;
+  pointer-events: none;
+  /* detalhe técnico: barra colorida lateral */
+  border-left: 3px solid var(--accent);
+}
+
+/* ══════════════════════════════════════════════
+   SIDEBAR TOGGLE MOBILE
+   ══════════════════════════════════════════════ */
+.sidebar-toggle {
+  display: none;
+  position: absolute;
+  top: var(--s3);
+  left: var(--s3);
+  z-index: 600;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-sm);
+  color: var(--text);
+  padding: var(--s2);
+  cursor: pointer;
+}
+
+/* ══════════════════════════════════════════════
+   LINHA DO TEMPO — régua cartográfica
+   ══════════════════════════════════════════════ */
+.timeline-bar {
+  height: var(--timeline-h);
+  background: var(--surface);
+  border-top: 1px solid var(--border);
+  flex-shrink: 0;
+  overflow: hidden;
+  box-shadow: 0 -1px 0 var(--border-faint);
+}
+
+.timeline-track {
+  display: flex;
+  align-items: stretch;
+  height: 100%;
+}
+
+.timeline-era {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  border-right: 1px solid var(--border-faint);
+  padding: 0 var(--s2);
+  cursor: pointer;
+  transition: background var(--ease);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Linha de marcação superior — detalhe de régua */
+.timeline-era::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 50%;
+  transform: translateX(-50%);
+  width: 1px; height: 6px;
+  background: var(--border-2);
+}
+
+.timeline-era:last-child { border-right: none; }
+
+.timeline-era:hover { background: var(--surface-3); }
+
+.timeline-era.active {
+  background: var(--accent-dim);
+}
+
+.timeline-era.active::before {
+  background: var(--accent);
+  height: 8px;
+}
+
+.timeline-era-label {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  font-weight: 400;
+  color: var(--text-faint);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  pointer-events: none;
+}
+
+.timeline-era.active .timeline-era-label {
+  color: var(--accent);
+  font-weight: 500;
+}
+
+/* ══════════════════════════════════════════════
+   MARCADORES CUSTOMIZADOS NO MAPA
+   ══════════════════════════════════════════════ */
+.sacred-marker {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  /* Borda estilo selo cartográfico */
+  border: 2px solid rgba(255,255,255,0.95);
+  box-shadow: 0 1px 6px rgba(0,0,0,0.35), 0 0 0 0.5px rgba(0,0,0,0.15);
+  cursor: pointer;
+  transition: transform 140ms ease, box-shadow 140ms ease;
+}
+
+.sacred-marker:hover {
+  transform: scale(1.35);
+  box-shadow: 0 3px 12px rgba(0,0,0,0.5), 0 0 0 1px rgba(0,0,0,0.2);
+  z-index: 1000 !important;
+}
+
+.sacred-marker.highlighted {
+  transform: scale(1.6);
+  box-shadow: 0 0 0 3px var(--accent), 0 4px 16px rgba(0,0,0,0.5);
+  z-index: 1100 !important;
+}
+
+/* ══════════════════════════════════════════════
+   POPUP — ficha de catalogação histórica
+   ══════════════════════════════════════════════ */
+.leaflet-popup-content-wrapper {
+  background: var(--surface-2) !important;
+  border: 1px solid var(--border-2) !important;
+  border-radius: var(--r-lg) !important;
+  box-shadow: var(--shadow-lg) !important;
+  padding: 0 !important;
+  max-width: 360px;
+  overflow: hidden;
+}
+
+/* Linha superior colorida — identificação da tradição */
+.leaflet-popup-content-wrapper::before {
+  display: none; /* gerenciado inline no popup */
+}
+
+.leaflet-popup-tip-container { display: none; }
+
+.leaflet-popup-content {
+  margin: 0 !important;
+  min-width: 290px;
+  max-width: 360px;
+  width: auto !important;
+}
+
+.leaflet-popup-close-button {
+  color: var(--text-faint) !important;
+  top: 10px !important;
+  right: 10px !important;
+  font-size: 18px !important;
+  width: 26px !important;
+  height: 26px !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--r-sm) !important;
+  transition: all var(--ease);
+}
+
+.leaflet-popup-close-button:hover {
+  background: var(--surface-3) !important;
+  color: var(--text) !important;
+}
+
+/* ── POPUP INTERIOR ── */
+.popup-inner {
+  padding: 0;
+}
+
+/* Cabeçalho colorido — como tarja de ficha de museu */
+.popup-header {
+  padding: var(--s3) var(--s4);
+  border-bottom: 1px solid var(--border-faint);
+  /* cor injetada via JS como background */
+}
+
+.popup-religion-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-family: var(--font-mono);
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.95);
+  margin-bottom: var(--s2);
+  padding: 2px var(--s2);
+  border-radius: var(--r-sm);
+  display: inline-block;
+}
+
+.popup-body {
+  padding: var(--s4);
+}
+
+.popup-title {
+  font-family: var(--font-display);
+  font-size: clamp(1rem, 0.9rem + 0.4vw, 1.2rem);
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 4px;
+  line-height: 1.25;
+  /* estilo editorial — como título de verbete */
+}
+
+/* Localização com código coordenada — toque técnico */
+.popup-location {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  font-weight: 400;
+  color: var(--text-faint);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: var(--s3);
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+/* Data em display — como legenda de atlas */
+.popup-period {
+  font-family: var(--font-display);
+  font-size: var(--text-base);
+  font-style: italic;
+  font-weight: 400;
+  color: var(--accent);
+  margin-bottom: var(--s3);
+  line-height: 1;
+}
+
+.popup-description {
+  font-family: var(--font-ui);
+  font-size: var(--text-sm);
+  color: var(--text-muted);
+  line-height: 1.65;
+  margin-bottom: var(--s3);
+}
+
+/* Badge de certeza — interface técnica */
+.popup-certainty {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px var(--s2);
+  border-radius: var(--r-sm);
+  font-family: var(--font-mono);
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: var(--s3);
+}
+
+/* Aviso de debate — destaque âmbar */
+.popup-controversy {
+  background: rgba(201,149,42,0.08);
+  border: 1px solid rgba(201,149,42,0.25);
+  border-radius: var(--r-sm);
+  padding: var(--s3);
+  margin-bottom: var(--s3);
+}
+
+.popup-controversy-label {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  font-weight: 500;
+  color: var(--accent);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: 4px;
+}
+
+.popup-controversy p {
+  font-size: var(--text-xs);
+  color: var(--text-muted);
+  line-height: 1.55;
+  font-style: italic;
+  max-width: none;
+}
+
+/* Rodapé da ficha — fonte e link */
+.popup-source {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  font-weight: 300;
+  color: var(--text-faint);
+  line-height: 1.5;
+  letter-spacing: 0.05em;
+  padding-top: var(--s3);
+  border-top: 1px solid var(--border-faint);
+}
+
+.popup-source strong {
+  font-weight: 500;
+  color: var(--text-faint);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+}
+
+.popup-source a {
+  color: var(--tech);
+  text-decoration: none;
+}
+
+.popup-source a:hover { text-decoration: underline; }
+
+/* ══════════════════════════════════════════════
+   ROTAS
+   ══════════════════════════════════════════════ */
+.route-item {
+  display: flex;
+  align-items: center;
+  gap: var(--s2);
+  padding: 4px var(--s2);
+  border-radius: var(--r-sm);
+  cursor: pointer;
+  transition: background var(--ease);
+  user-select: none;
+}
+
+.route-item:hover { background: var(--surface-3); }
+.route-item.disabled { opacity: 0.3; }
+
+/* Linha tracejada — como rota em mapa antigo */
+.route-line {
+  width: 22px; height: 2px;
+  border-radius: 1px;
+  flex-shrink: 0;
+  background-image: repeating-linear-gradient(
+    90deg,
+    var(--route-clr, #888) 0px,
+    var(--route-clr, #888) 6px,
+    transparent 6px,
+    transparent 10px
+  );
+}
+
+.route-name {
+  font-size: var(--text-xs);
+  color: var(--text-muted);
+  line-height: 1.3;
+  flex: 1;
+}
+
+/* ══════════════════════════════════════════════
+   CONTROLES LEAFLET
+   ══════════════════════════════════════════════ */
+.leaflet-control-zoom {
+  border: 1px solid var(--border) !important;
+  border-radius: var(--r-md) !important;
+  overflow: hidden;
+  box-shadow: var(--shadow-sm) !important;
+}
+
+.leaflet-control-zoom a {
+  background: var(--surface) !important;
+  color: var(--text-faint) !important;
+  border-bottom: 1px solid var(--border-faint) !important;
+  font-family: var(--font-mono) !important;
+  font-size: 14px !important;
+  transition: all var(--ease) !important;
+  width: 28px !important;
+  height: 28px !important;
+  line-height: 28px !important;
+}
+
+.leaflet-control-zoom a:hover {
+  background: var(--surface-3) !important;
+  color: var(--accent) !important;
+}
+
+.leaflet-control-attribution {
+  background: var(--surface) !important;
+  color: var(--text-faint) !important;
+  font-size: 9px !important;
+  font-family: var(--font-mono) !important;
+  border-top: 1px solid var(--border-faint) !important;
+  border-left: 1px solid var(--border-faint) !important;
+  padding: 2px 6px !important;
+}
+
+.leaflet-control-attribution a { color: var(--accent) !important; }
+
+/* ══════════════════════════════════════════════
+   MODAL DE AJUDA
+   ══════════════════════════════════════════════ */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(20,18,13,0.75);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--s4);
+  backdrop-filter: blur(6px);
+}
+
+.modal-box {
+  background: var(--surface-2);
+  border: 1px solid var(--border-2);
+  border-radius: var(--r-lg);
+  max-width: 580px;
+  width: 100%;
+  max-height: 90dvh;
+  overflow-y: auto;
+  box-shadow: var(--shadow-lg);
+  animation: fadeUp 200ms ease forwards;
+  /* Linha dourada no topo */
+  border-top: 3px solid var(--accent);
+}
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--s5) var(--s6);
+  border-bottom: 1px solid var(--border-faint);
+}
+
+.modal-header h2 {
+  font-family: var(--font-display);
+  font-size: var(--text-xl);
+  font-weight: 600;
+  color: var(--accent);
+  letter-spacing: 0.05em;
+}
+
+.modal-close {
+  font-size: 1.1rem;
+  color: var(--text-faint);
+  background: none; border: none;
+  cursor: pointer;
+  width: 30px; height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--r-sm);
+  transition: all var(--ease);
+}
+
+.modal-close:hover {
+  background: var(--surface-3);
+  color: var(--text);
+}
+
+.modal-body { padding: var(--s5) var(--s6); }
+
+.help-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--s4);
+  margin-bottom: var(--s5);
+}
+
+.help-item {
+  display: flex;
+  gap: var(--s3);
+  align-items: flex-start;
+}
+
+.help-icon { font-size: 1.2rem; flex-shrink: 0; margin-top: 1px; }
+
+.help-item strong {
+  display: block;
+  font-family: var(--font-display);
+  font-size: var(--text-base);
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 3px;
+}
+
+.help-item p {
+  font-size: var(--text-xs);
+  color: var(--text-muted);
+  line-height: 1.55;
+  max-width: none;
+}
+
+.help-note {
+  background: var(--accent-dim);
+  border: 1px solid var(--accent-line);
+  border-radius: var(--r-sm);
+  padding: var(--s4);
+  font-size: var(--text-sm);
+  color: var(--text-muted);
+  line-height: 1.65;
+  font-style: italic;
+  font-family: var(--font-ui);
+}
+
+.help-note strong {
+  color: var(--accent);
+  font-style: normal;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+/* ══════════════════════════════════════════════
+   RESPONSIVO
+   ══════════════════════════════════════════════ */
+@media (max-width: 768px) {
+  :root { --sidebar-w: 255px; }
+
+  .sidebar {
+    position: absolute;
+    left: 0; top: 0; height: 100%;
+    z-index: 700;
+    transform: translateX(-100%);
+    transition: transform var(--ease);
+  }
+
+  .sidebar.open { transform: translateX(0); box-shadow: var(--shadow-lg); }
+  .sidebar-toggle { display: flex; }
+  .header-subtitle { display: none; }
+  .help-grid { grid-template-columns: 1fr; }
+}
+
+/* ══════════════════════════════════════════════
+   ANIMAÇÕES
+   ══════════════════════════════════════════════ */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ══════════════════════════════════════════════
+   MISC
+   ══════════════════════════════════════════════ */
+.leaflet-div-icon { background: none !important; border: none !important; }
+
+::selection {
+  background: var(--accent-dim);
+  color: var(--text);
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--border-2) transparent;
+}
+
+/* ══════════════════════════════════════════════
+   DETAIL PANEL — painel deslizante lateral direito
+   ══════════════════════════════════════════════ */
+
+.detail-panel {
+  position: absolute;
+  top: var(--s4);
+  right: var(--s4);
+  bottom: var(--s4);
+  width: 300px;
+  max-width: calc(100vw - var(--sidebar-w) - var(--s8));
+  background: var(--surface-2);
+  border: 1px solid var(--border-2);
+  border-radius: var(--r-lg);
+  box-shadow: var(--shadow-lg);
+  z-index: 600;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  /* Entra da direita */
+  transform: translateX(calc(100% + var(--s4) + 20px));
+  opacity: 0;
+  transition: transform 240ms cubic-bezier(0.16, 1, 0.3, 1),
+              opacity 200ms ease;
+  pointer-events: none;
+  /* Borda topo colorida — injetada via JS */
+  border-top: 3px solid transparent;
+}
+
+.detail-panel.open {
+  transform: translateX(0);
+  opacity: 1;
+  pointer-events: all;
+}
+
+.detail-panel-inner {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+}
+
+/* ── Topbar: tradição + botão fechar ── */
+.dp-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--s3) var(--s4);
+  border-bottom: 1px solid var(--border-faint);
+  flex-shrink: 0;
+  /* cor de fundo injetada via JS (tint da tradição) */
+}
+
+.dp-religion-tag {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  padding: 3px var(--s2);
+  border-radius: var(--r-sm);
+  color: #fff;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: calc(100% - 36px);
+}
+
+.dp-close {
+  width: 26px;
+  height: 26px;
+  background: rgba(0,0,0,0.08);
+  border: none;
+  border-radius: var(--r-sm);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255,255,255,0.8);
+  flex-shrink: 0;
+  transition: background var(--ease);
+}
+
+.dp-close:hover { background: rgba(0,0,0,0.18); }
+
+/* ── Cabeçalho fixo: data + título + local ── */
+.dp-head {
+  padding: var(--s4) var(--s4) var(--s3);
+  border-bottom: 1px solid var(--border-faint);
+  flex-shrink: 0;
+}
+
+.dp-period {
+  font-family: var(--font-display);
+  font-size: var(--text-base);
+  font-style: italic;
+  color: var(--accent);
+  margin-bottom: var(--s1);
+  line-height: 1;
+}
+
+.dp-title {
+  font-family: var(--font-display);
+  font-size: clamp(1rem, 0.85rem + 0.5vw, 1.2rem);
+  font-weight: 600;
+  color: var(--text);
+  line-height: 1.25;
+  margin-bottom: var(--s2);
+}
+
+.dp-location {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  color: var(--text-faint);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+/* ── Corpo scrollável ── */
+.dp-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: var(--s4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--s3);
+  scrollbar-width: thin;
+  scrollbar-color: var(--border-2) transparent;
+}
+
+.dp-description {
+  font-family: var(--font-ui);
+  font-size: var(--text-sm);
+  color: var(--text-muted);
+  line-height: 1.7;
+  max-width: none;
+}
+
+/* Badge de certeza */
+.dp-certainty-row { display: flex; }
+
+.dp-certainty {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px var(--s2);
+  border-radius: var(--r-sm);
+  font-family: var(--font-mono);
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+/* Controvérsia */
+.dp-controversy {
+  background: rgba(139,96,32,0.08);
+  border: 1px solid var(--accent-line);
+  border-radius: var(--r-sm);
+  padding: var(--s3);
+}
+
+.dp-controversy-label {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  font-weight: 500;
+  color: var(--accent);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: var(--s2);
+}
+
+.dp-controversy p {
+  font-size: var(--text-xs);
+  color: var(--text-muted);
+  line-height: 1.6;
+  font-style: italic;
+  max-width: none;
+}
+
+/* Fonte */
+.dp-source {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  font-weight: 300;
+  color: var(--text-faint);
+  line-height: 1.6;
+  letter-spacing: 0.04em;
+  padding-top: var(--s3);
+  border-top: 1px solid var(--border-faint);
+  margin-top: auto;
+}
+
+.dp-source strong {
+  font-weight: 500;
+  color: var(--text-faint);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  display: block;
+  margin-bottom: 3px;
+}
+
+.dp-source a {
+  color: var(--tech);
+  text-decoration: none;
+  word-break: break-word;
+}
+
+.dp-source a:hover { text-decoration: underline; }
+
+/* ── Responsivo mobile ── */
+@media (max-width: 768px) {
+  .detail-panel {
+    top: auto;
+    right: 0;
+    bottom: var(--timeline-h);
+    left: 0;
+    width: 100%;
+    max-width: 100%;
+    border-radius: var(--r-lg) var(--r-lg) 0 0;
+    max-height: 55dvh;
+    transform: translateY(100%);
+  }
+
+  .detail-panel.open {
+    transform: translateY(0);
+  }
+}
