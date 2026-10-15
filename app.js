@@ -16,8 +16,8 @@ const State = {
   periodStart: -3300,
   periodEnd:    2026,
   searchQuery:  '',
-  activeLayers: new Set(['traditions','missions','changes']),
-  region: 'para', people:'all', includeTimeless:true,
+  activeLayers: new Set(['traditions']),
+  region: 'all', people:'all', includeTimeless:true,
   map:          null,
   markers:      [],
   routeLayers:  [],
@@ -43,7 +43,7 @@ function initMap() {
   const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
 
   State.map = L.map('map', {
-    center: [-3.5, -53.5], zoom: 5, minZoom: 2, maxZoom: 15,
+    center: [20, 15], zoom: 2, minZoom: 2, maxZoom: 15,
     zoomControl: false, attributionControl: true,
     layers: [isDark ? cartoDark : cartoSepia]
   });

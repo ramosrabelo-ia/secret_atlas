@@ -5,6 +5,10 @@ Um atlas interativo para explorar a geografia das tradições religiosas e espir
 
 **Versão 2 · 86 registros · 4 camadas temáticas · Pará × Japão**
 
+## Navegação
+
+O mapa mundial é a tela principal. Os novos estudos da V2 ficam na sequência, abaixo do mapa, com fichas que abrem diretamente seus detalhes e sua região.
+
 ## Novidades da versão 2
 
 - Estudo do Pará com referências regionais Munduruku, Mẽbengôkre/Kayapó, Tiriyó/Tarëno e Tembé/Tenetehara.
