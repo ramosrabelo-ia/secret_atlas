@@ -29,10 +29,10 @@
       </svg>
       <div class="header-title">
         <h1>Sacred Atlas</h1>
-        <span class="header-subtitle">História, território e tradições</span>
+        <span class="header-subtitle">História, território e tradições · v2</span>
       </div>
     </div>
-    <nav class="header-nav" aria-label="Navegação principal"><button id="nav-explore" class="nav-button active">Explorar</button><button id="nav-routes" class="nav-button">Rotas</button><button id="nav-about" class="nav-button">Sobre o atlas</button></nav><div class="header-right">
+    <nav class="header-nav" aria-label="Navegação principal"><button id="nav-explore" class="nav-button active">Explorar</button><button id="nav-compare" class="nav-button">Pará × Japão</button><button id="nav-routes" class="nav-button">Rotas</button><button id="nav-about" class="nav-button">Sobre o atlas</button></nav><div class="header-right">
       <button class="btn-icon" id="btn-help" aria-label="Ajuda" title="Como usar">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
       </button>
@@ -49,7 +49,7 @@
     <aside class="sidebar" id="sidebar">
       <div class="sidebar-inner">
 
-        <!-- SEARCH -->
+        <section class="sidebar-section v2-controls" aria-label="Camadas e territórios"><span class="v2-kicker">NOVO RECORTE · AMAZÔNIAS</span><h2 class="section-title">O que o território conta?</h2><div id="layer-controls"></div><label class="select-label" for="region-select">Território</label><select id="region-select"><option value="all">Mundo</option><option value="para" selected>Pará — estudo aprofundado</option><option value="amazon">Amazônias</option><option value="japan">Japão — comparação</option><option value="brazil">Brasil — dado nacional</option></select><label class="select-label" for="people-select">Povo</label><select id="people-select"><option value="all">Todos os povos</option></select><label class="timeless-option"><input id="include-timeless" type="checkbox" checked> Incluir tradições sem data de origem</label><button class="compare-open" id="compare-open">Entender Pará × Japão ↗</button><p class="geo-disclaimer">◇ Referência regional aproximada. Não representa limite territorial ou aldeia confirmada.</p></section><!-- SEARCH -->
         <div class="sidebar-section">
           <div class="search-box">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
@@ -77,17 +77,17 @@
           <div class="period-display">
             <span id="period-label-start" class="period-val">3300 a.C.</span>
             <span class="period-sep">—</span>
-            <span id="period-label-end" class="period-val">2000 d.C.</span>
+            <span id="period-label-end" class="period-val">2026 d.C.</span>
           </div>
           <div class="timeline-range">
-            <input aria-label="Início do período" type="range" id="range-start" min="-3300" max="2000" value="-3300" step="50" />
-            <input aria-label="Fim do período" type="range" id="range-end"   min="-3300" max="2000" value="2000"  step="50" />
+            <input aria-label="Início do período" type="range" id="range-start" min="-3300" max="2026" value="-3300" step="1" />
+            <input aria-label="Fim do período" type="range" id="range-end"   min="-3300" max="2026" value="2026"  step="1" />
           </div>
           <div class="period-presets">
             <button class="period-btn" data-start="-3300" data-end="-500">Antiguidade</button>
             <button class="period-btn" data-start="-500" data-end="500">Mundo Clássico</button>
             <button class="period-btn" data-start="500" data-end="1500">Medieval</button>
-            <button class="period-btn" data-start="1500" data-end="2000">Moderno</button>
+            <button class="period-btn" data-start="1500" data-end="2026">Moderno</button>
           </div>
         </div>
 
@@ -117,7 +117,7 @@
 
     <!-- ======= MAP ======= -->
     <main class="map-container">
-      <div id="map" aria-label="Mapa interativo de lugares e rotas históricas"></div><div class="map-intro"><span class="intro-icon">◈</span><div><h2>Territórios de memória</h2><p>Explore lugares, épocas e narrativas.</p></div></div><div class="map-tools"><button id="fit-results">Enquadrar resultados</button><button id="reset-view">Visão global</button></div><div id="map-error" role="status" hidden>O mapa não carregou. Verifique sua conexão; você pode continuar explorando os lugares pela busca.</div>
+      <div id="map" aria-label="Mapa interativo de lugares e rotas históricas"></div><div class="map-intro"><span class="intro-icon">◈</span><div><h2>Pará: territórios e encontros</h2><p>Povos, missões e permanências religiosas.</p></div></div><div class="map-tools"><button id="fit-results">Enquadrar resultados</button><button id="reset-view">Visão global</button></div><div id="map-error" role="status" hidden>O mapa não carregou. Verifique sua conexão; você pode continuar explorando os lugares pela busca.</div>
 
       <!-- Map stats -->
       <div class="map-stats" id="map-stats">
@@ -164,7 +164,7 @@
             </div>
 
             <!-- Fonte -->
-            <div class="dp-source" id="dp-source"></div><a id="dp-google" class="place-link" target="_blank" rel="noopener" hidden>Ver localização no Google Maps ↗</a>
+            <div class="dp-meta" id="dp-meta"></div><div class="dp-source" id="dp-source"></div><a id="dp-google" class="place-link" target="_blank" rel="noopener" hidden>Ver localização no Google Maps ↗</a>
           </div>
 
         </div>
@@ -176,7 +176,7 @@
 
   <!-- ======= LINHA DO TEMPO (bottom bar) ======= -->
   <div class="timeline-bar" id="timeline-bar">
-    <div class="timeline-caption"><strong>Linha do tempo</strong><span>Escolha uma época para explorar</span></div><div class="timeline-track" id="timeline-track">
+    <div class="timeline-caption"><strong>Linha do tempo</strong><span>Sem data ≠ fora da história</span><button id="all-time" class="btn-text">Ver todos os períodos</button></div><div class="timeline-track" id="timeline-track">
       <!-- Filled by JS -->
     </div>
   </div>
@@ -244,6 +244,8 @@
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script src="https://unpkg.com/leaflet.fullscreen@3.0.2/Control.FullScreen.js"></script>
   <script src="data.js"></script>
+  <script src="v2-data.js"></script>
   <script src="app.js"></script>
-</body>
+  <script src="v2-ui.js"></script>
+<dialog id="comparison-dialog" aria-labelledby="comparison-title"><button id="comparison-close" aria-label="Fechar comparação">×</button><div class="comparison-content" id="comparison-content"></div></dialog></body>
 </html>

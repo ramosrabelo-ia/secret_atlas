@@ -3,7 +3,26 @@
 
 Um atlas interativo para explorar a geografia das tradições religiosas e espirituais: lugares, acontecimentos e caminhos que atravessam séculos.
 
-**68 lugares · 14 categorias de tradições · Mapa interativo · Linha do tempo**
+**Versão 2 · 86 registros · 4 camadas temáticas · Pará × Japão**
+
+## Novidades da versão 2
+
+- Estudo do Pará com referências regionais Munduruku, Mẽbengôkre/Kayapó, Tiriyó/Tarëno e Tembé/Tenetehara.
+- Novas fichas Yanomami, Baniwa, Tukano, Magüta/Tikuna e Wajãpi.
+- Camadas de povos e tradições, missões e colonização, transformações religiosas e religiões no presente.
+- Comparação Pará × Japão, distinguindo missão religiosa e domínio colonial.
+- Filtros por povo e território; cronologia até 2026; opção de incluir tradições sem data de origem atribuída.
+- Fontes identificadas em cada ficha nova, data de consulta e notas de precisão geográfica.
+
+### Limites desta versão
+
+As coordenadas novas são **âncoras editoriais aproximadas de regiões ou cidades**, não coordenadas verificadas de aldeias, missões ou lugares sagrados. Não foram incluídos polígonos de Terras Indígenas ou rotas missionárias inventadas. A fonte cartográfica de limites estaduais não pôde ser incorporada nesta atualização.
+
+As fichas novas são sínteses de fontes públicas, sem validação comunitária. A V1 fora desse recorte ainda não foi auditada integralmente. Datas de origem sem sustentação foram retiradas de registros de tradição oral indígena; o registro Tikuna foi corrigido para uma referência ao Alto Solimões.
+
+O indicador de católicos do Censo 2022 é **nacional**, para pessoas de 10 anos ou mais. O percentual do Pará permanece pendente de validação e não foi estimado.
+
+Consulte [as fontes e a metodologia](SOURCES.md).
 
 ## A história também pode ser explorada pelo mapa
 
@@ -66,7 +85,10 @@ sacred-atlas/
 ├── style.css        # Estilos da base original
 ├── refined.css      # Identidade visual branca e roxa
 ├── app.js           # Mapa, busca, filtros e navegação
-├── data.js          # Lugares, rotas e metadados
+├── data.js          # Base herdada
+├── v2-data.js       # Correções e novos registros com fontes
+├── v2-ui.js         # Camadas e comparação Pará × Japão
+├── SOURCES.md       # Fontes e metodologia
 └── README.md
 ```
 

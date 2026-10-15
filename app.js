@@ -14,8 +14,10 @@ const State = {
   activeCertainty:  new Set(Object.keys(CERTAINTY_LEVELS)),
   activeRoutes:     new Set(SACRED_ROUTES.map(r => r.id)),
   periodStart: -3300,
-  periodEnd:    2000,
+  periodEnd:    2026,
   searchQuery:  '',
+  activeLayers: new Set(['traditions','missions','changes']),
+  region: 'para', people:'all', includeTimeless:true,
   map:          null,
   markers:      [],
   routeLayers:  [],
@@ -41,7 +43,7 @@ function initMap() {
   const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
 
   State.map = L.map('map', {
-    center: [31.8, 34.8], zoom: 5, minZoom: 2, maxZoom: 15,
+    center: [-3.5, -53.5], zoom: 5, minZoom: 2, maxZoom: 15,
     zoomControl: false, attributionControl: true,
     layers: [isDark ? cartoDark : cartoSepia]
   });
@@ -72,14 +74,14 @@ function initMap() {
 function createMarkerIcon(feature, selected = false) {
   const p = feature.properties;
   const colorInfo = RELIGION_COLORS[p.color_key] || { primary: '#999' };
-  const size = getMarkerSize(p.certainty);
+  const size = p.reviewed ? 16 : getMarkerSize(p.certainty);
   const ring = selected
     ? `box-shadow:0 0 0 3px ${colorInfo.primary},0 2px 10px rgba(0,0,0,0.45);transform:scale(1.2);`
     : 'box-shadow:0 1px 6px rgba(0,0,0,0.32),0 0 0 0.5px rgba(0,0,0,0.12);';
 
   return L.divIcon({
     className: '',
-    html: `<div class="sacred-marker" style="
+    html: `<div class="sacred-marker ${p.geo_kind === 'region' ? 'regional-marker' : ''}" style="
       width:${size}px;height:${size}px;
       background:${colorInfo.primary};
       border:2px solid rgba(255,255,255,0.9);
@@ -136,6 +138,7 @@ function openDetailPanel(feature, marker) {
   google.href=`https://www.google.com/maps/search/?api=1&query=${lat},${lng}`;
   google.hidden=false;
 
+
   // Certeza
   const certEl = document.getElementById('dp-certainty');
   certEl.textContent    = cert.badge;
@@ -157,6 +160,8 @@ function openDetailPanel(feature, marker) {
     ? `<a href="${escHtml(p.source_url)}" target="_blank" rel="noopener">${escHtml(p.source)}</a>`
     : escHtml(p.source);
   srcEl.innerHTML = `<strong>Fonte</strong>${srcLink}`;
+
+  renderV2Detail(p);
 
   // Scroll ao topo
   const body = panel.querySelector('.dp-body');
@@ -205,8 +210,11 @@ function renderMarkers() {
     if (!State.activeReligions.has(p.color_key))   return;
     if (!State.activeEventTypes.has(p.event_type)) return;
     if (!State.activeCertainty.has(p.certainty))   return;
-    if (p.period_start > State.periodEnd)           return;
-    if (p.period_end   < State.periodStart)         return;
+    if(!State.activeLayers.has(p.layer||'traditions'))return;
+    if(State.region!=='all'&&!(p.regions||[]).includes(State.region))return;
+    if(State.people!=='all'&&p.people!==State.people)return;
+    if(p.timeless&&!State.includeTimeless)return;
+    if(!p.timeless&&(p.period_start>State.periodEnd||p.period_end<State.periodStart))return;
     if (q && !normalizeSearch(`${p.event} ${p.location} ${p.religion} ${p.description}`).includes(q)) return;
 
     const [lng, lat] = feature.geometry.coordinates;
@@ -237,6 +245,7 @@ function renderRoutes() {
 
   SACRED_ROUTES.forEach(route => {
     if (!State.activeRoutes.has(route.id)) return;
+    if(!State.activeLayers.has('traditions')||State.region!=='all'||State.people!=='all'||State.searchQuery)return;
     if (!Object.entries(RELIGION_COLORS).some(([key,info])=>info.name===route.religion && State.activeReligions.has(key))) return;
 
     const latlngs = route.coordinates.map(([lng, lat]) => [lat, lng]);
@@ -273,6 +282,7 @@ function renderRoutes() {
       certEl.style.color      = cert.color;
 
       document.getElementById('dp-controversy').style.display = 'none';
+      document.getElementById('dp-meta').replaceChildren();
       document.getElementById('dp-source').textContent = 'Rota esquemática do arquivo original. Sem fonte específica vinculada.';
       document.getElementById('dp-google').hidden=true;
 
@@ -412,14 +422,14 @@ function buildRouteFilters() {
 // LINHA DO TEMPO
 // ──────────────────────────────────────────────
 const ERAS = [
-  { label: 'Pré-história',  start: -3300, end: -1200 },
+  { label: '3300–1200 a.C.',  start: -3300, end: -1200 },
   { label: 'Antiguidade I', start: -1200, end: -500  },
   { label: 'Antiguidade II',start:  -500, end:  0    },
   { label: 'Séc. I–V',      start:     0, end:  500  },
   { label: 'Séc. VI–X',     start:   500, end: 1000  },
   { label: 'Séc. XI–XV',    start:  1000, end: 1500  },
   { label: 'Séc. XVI–XIX',  start:  1500, end: 1900  },
-  { label: 'Séc. XX–XXI',   start:  1900, end: 2000  },
+  { label: 'Séc. XX–XXI',   start:  1900, end: 2026  },
 ];
 
 function buildTimeline() {
@@ -457,14 +467,14 @@ function initPeriodControls() {
 
   rs.addEventListener('input', () => {
     let v = parseInt(rs.value);
-    if (v >= State.periodEnd) v = State.periodEnd - 50;
+    if (v >= State.periodEnd) v = Math.max(-3300,State.periodEnd - 1);
     State.periodStart = v; rs.value = v;
     updatePeriodUI(); renderMarkers(); highlightEra(null);
   });
 
   re.addEventListener('input', () => {
     let v = parseInt(re.value);
-    if (v <= State.periodStart) v = State.periodStart + 50;
+    if (v <= State.periodStart) v = Math.min(2026,State.periodStart + 1);
     State.periodEnd = v; re.value = v;
     updatePeriodUI(); renderMarkers(); highlightEra(null);
   });
@@ -631,6 +641,7 @@ document.addEventListener('DOMContentLoaded', () => {
   renderRoutes();
   updatePeriodUI();
   initRefinements();
+  initV2();
 });
 
 function normalizeSearch(value){return String(value).normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();}
