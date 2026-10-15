@@ -658,7 +658,6 @@ function renderSearchResults(){
  if(State.markers.length>12){const note=document.createElement('p');note.textContent='Mostrando 12 resultados. Refine a busca para encontrar mais lugares.';box.append(note);}
 }
 function initRefinements(){
- document.getElementById('more-traditions').onclick=function(){const list=document.getElementById('religion-filters');const expanded=list.classList.toggle('expanded');this.setAttribute('aria-expanded',expanded);this.textContent=expanded?'Menos tradições ↑':'Mais tradições ↓';};
  document.getElementById('fit-results').onclick=()=>{if(State.markers.length)State.map.fitBounds(L.latLngBounds(State.markers.map(x=>x.marker.getLatLng())),{padding:[40,40],maxZoom:9});};
  document.getElementById('reset-view').onclick=()=>State.map.flyTo([20,15],2);
  document.getElementById('nav-about').onclick=()=>document.getElementById('btn-help').click();
